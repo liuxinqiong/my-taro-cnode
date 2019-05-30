@@ -1,14 +1,16 @@
 import Taro, { Component } from '@tarojs/taro';
-import { View, Image } from '@tarojs/components';
+import { View, Image, Text } from '@tarojs/components';
 import { connect } from '@tarojs/redux'
 import './head.less'
 
 class Head extends Component {
   render() {
+    const {loginName, avatar_url} = this.props;
     return (
       <View className="login-head">
         <Image className="login-head-back" src={require('../../assets/img/loginBack.jpg')}></Image>
-        <Image className="login-head-head" src={require('../../assets/img/head.png')}></Image>
+        <Image className="login-head-head" src={avatar_url ? avatar_url : require('../../assets/img/head.png')}></Image>
+        {loginName ? <Text className='login-head-name'>{loginName}</Text> : null}
       </View>
     )
   }

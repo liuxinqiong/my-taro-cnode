@@ -1,6 +1,6 @@
 import Taro from '@tarojs/taro'
 import api from '../constants/api'
-import { postJSON } from '../utils/request'
+import { postJSON, getJSON } from '../utils/request'
 
 export function accessUserToken(params) {
   return async dispatch => {
@@ -10,7 +10,8 @@ export function accessUserToken(params) {
         type: 'loginSuccess',
         payload: {
           accessToken: params.accesstoken,
-          loginName: result.data.loginname
+          loginName: result.data.loginname,
+          avatar_url: result.data.avatar_url
         }
       })
       return result.data
@@ -24,5 +25,16 @@ export function accessUserToken(params) {
       })
     }
     return false
+  }
+}
+
+export async function getUserInfo(params) {
+  let result = await getJSON(api.getuserinfo + params.loginName)
+  if(result && result.data && result.data.success) {
+    return result.data;
+  } else {
+    Taro.showToast({
+      title: '拉取用户信息失败'
+    })
   }
 }

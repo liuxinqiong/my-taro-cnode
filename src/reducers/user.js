@@ -5,7 +5,6 @@ const USER_STATE = {
 export default function user(prestate = USER_STATE, action) {
   switch(action.type) {
     case 'loginSuccess':
-    debugger
       return {...prestate, ...action.payload}
    case 'loginFail':
       return {...prestate, ...action.payload}
