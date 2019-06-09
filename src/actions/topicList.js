@@ -71,3 +71,15 @@ export async function replyContent(params) {
     })
   }
 }
+
+export async function submitTopic(params) {
+  const result = await postJSON(api.createtopic, params);
+  if(result && result.data && result.data.success) {
+    return result.data
+  } else {
+    Taro.showToast({
+      title: '发布话题失败',
+      icon: 'none'
+    })
+  }
+}
