@@ -3,10 +3,11 @@ import { View, Text, Button, Image } from '@tarojs/components';
 import { connect } from '@tarojs/redux'
 import { showDrawer, changeCata, hideDrawer } from '../../actions/menu'
 import { AtDrawer } from 'taro-ui'
+import { validateUser } from '../../actions/user'
 import './menu.less'
 
 @connect(function(store) {
-  return {...store.menu}
+  return {...store.menu, user: store.user}
 }, function(dispatch) {
   return {
     showMenu() {
@@ -38,8 +39,17 @@ class Menu extends Component {
     this.props.hideMenu()
   }
   toUser() {
-    Taro.navigateTo({
-      url: '/pages/login/login'
+    let { user } = this.props;
+    validateUser(user).then(result => {
+      if(result) {
+        Taro.navigateTo({
+          url: '/pages/user/user'
+        })
+      } else {
+        Taro.navigateTo({
+          url: '/pages/login/login'
+        })
+      }
     })
   }
   render() {

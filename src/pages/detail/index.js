@@ -90,13 +90,14 @@ class Detail extends Component {
     this.getDetail()
   }
   render() {
-    const { topicInfo, replies} = this.props;
+    const { topicInfo, replies, user } = this.props;
     const { showReplyContent } = this.state;
+    const selfPublish = user.loginName === topicInfo.author.loginname;
     return (
       <View className="detail">
         {showReplyContent?<ReplyContent onCancelReplyContent={this.closeReplyContent.bind(this)} onOKReplyContent={this.replyContent.bind(this)}></ReplyContent>:null}
-        <TopicInfo topicInfo={topicInfo}></TopicInfo>
-        <Replies onReplyToReply={this.replyToReply.bind(this)} replies={replies} onAdmire={this.admire.bind(this)}></Replies>
+        <TopicInfo topicInfo={topicInfo} selfPublish={selfPublish}></TopicInfo>
+        <Replies user={user} onReplyToReply={this.replyToReply.bind(this)} replies={replies} onAdmire={this.admire.bind(this)}></Replies>
         <Button className="reply-btn" onClick={this.reply.bind(this)}>回复</Button>
       </View>
     )

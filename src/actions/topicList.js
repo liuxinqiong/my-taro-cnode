@@ -83,3 +83,16 @@ export async function submitTopic(params) {
     })
   }
 }
+
+
+export async function updateTopic(params) {
+  const result = await postJSON(api.updatetopic, params);
+  if(result && result.data && result.data.success) {
+    return result.data
+  } else {
+    Taro.showToast({
+      title: '编辑话题失败',
+      icon: 'none'
+    })
+  }
+}

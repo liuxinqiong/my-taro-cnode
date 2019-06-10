@@ -3,15 +3,34 @@ import { View, Text, Button, Image, RichText } from '@tarojs/components';
 import { connect } from '@tarojs/redux'
 import './replies.less'
 import { myTimeToLocal } from '../../utils/date'
+import { validateUser } from '../../actions/user'
 
 const isweapp = process.env.TARO_ENV === 'weapp'
 
 class Replies extends Component {
   admire(reply) {
-    this.props.onAdmire && this.props.onAdmire(reply)
+    const { user } = this.props;
+    validateUser(user).then(result => {
+      if(result) {
+        this.props.onAdmire && this.props.onAdmire(reply)
+      } else {
+        Taro.navigateTo({
+          url: '/pages/login/login'
+        })
+      }
+    })
   }
   replyToReply(reply) {
-    this.props.onReplyToReply(reply)
+    const { user } = this.props;
+    validateUser(user).then(result => {
+      if(result) {
+        this.props.onReplyToReply(reply)
+      } else {
+        Taro.navigateTo({
+          url: '/pages/login/login'
+        })
+      }
+    })
   }
   render() {
     const {replies} = this.props;

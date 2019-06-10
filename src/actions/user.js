@@ -38,3 +38,11 @@ export async function getUserInfo(params) {
     })
   }
 }
+
+export async function validateUser(params) {
+  if(params && params.accessToken) {
+    return true;
+  }
+  // 直接在此处跳转登录页
+  return false;
+}
