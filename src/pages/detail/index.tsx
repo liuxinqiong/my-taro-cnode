@@ -6,17 +6,19 @@ import TopicInfo from '../../components/topicInfo/topicInfo'
 import Replies from '../../components/topicInfo/replies'
 import ReplyContent from '../../components/topicInfo/replyContent'
 import './detail.less'
+import { IDetailProps, IDetailState } from '../../interfaces/IDetail'
 
 const isweapp = process.env.TARO_ENV === 'weapp'
 
-@connect(function(store) {
+@connect(function(store): IDetailProps {
   return {
+    getTopicInfo,
     topicInfo: store.topicList.topicInfo,
     replies: store.topicList.replies,
     user: store.user,
     admireState: store.topicList.admireState
   }
-}, function(dispatch) {
+}, function(dispatch): IDetailProps {
   return {
     getTopicInfo(params) {
       dispatch(getTopicInfo(params))
@@ -26,11 +28,11 @@ const isweapp = process.env.TARO_ENV === 'weapp'
     }
   }
 })
-class Detail extends Component {
+class Detail extends Component<IDetailProps, IDetailState> {
   config = {
     navigationBarTitleText: '话题详情'
   }
-  state = {
+  state: IDetailState = {
     showReplyContent: false
   }
   admire(reply) {

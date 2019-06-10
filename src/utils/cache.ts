@@ -1,7 +1,8 @@
 import Taro from '@tarojs/taro'
+import { IValue } from '../interfaces/ICache'
 
-export function setCache(key, value) {
-  let params = value;
+export function setCache(key: string, value: IValue): void {
+  let params: any = value;
   if(typeof value === 'object') {
     params = JSON.stringify(value);
   }

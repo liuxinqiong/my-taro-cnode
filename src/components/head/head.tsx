@@ -2,8 +2,9 @@ import Taro, { Component } from '@tarojs/taro';
 import { View, Image, Text } from '@tarojs/components';
 import { connect } from '@tarojs/redux'
 import './head.less'
+import { IHeadProps } from '../../interfaces/IHead'
 
-class Head extends Component {
+class Head extends Component<IHeadProps> {
   render() {
     const {loginName, avatar_url} = this.props;
     return (
